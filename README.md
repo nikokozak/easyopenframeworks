@@ -1,6 +1,8 @@
 # easyopenframeworks README
 
-This is the README for your extension "easyopenframeworks". After writing up a brief description, we recommend including the following sections.
+## Commands
+
+- `easyopenframeworks.installOF`: Installs OpenFrameworks in the selected folder along with additional dependencies. *Will throw an error if the path contains spaces.*
 
 ## Features
 
