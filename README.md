@@ -1,5 +1,12 @@
 # easyopenframeworks README
 
+## Developing
+
+- Open the folder with VSCode (`code easyopenframeworks`).
+- Make adjustments as needed.
+- Test the extension by running (`Debug: Start Debugging`) from the command palette.
+- Run `Install OpenFrameworks` or other commands from the command palette in the new VSCode debug window.
+
 ## Commands
 
 - `easyopenframeworks.installOF`: Installs OpenFrameworks in the selected folder along with additional dependencies. *Will throw an error if the path contains spaces.*
