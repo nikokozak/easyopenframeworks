@@ -36,6 +36,11 @@ function activate(context) {
 			if (!folder) return;
 
 			const targetPath = folder[0].fsPath;
+			
+			// Check for spaces in path
+			if (targetPath.includes(' ')) {
+				throw new Error('Installation path cannot contain spaces. Please choose a different location.');
+			}
 
 			// Show progress
 			await vscode.window.withProgress({
@@ -43,13 +48,27 @@ function activate(context) {
 				title: "Installing OpenFrameworks",
 				cancellable: false
 			}, async (progress) => {
+				// Clone repo
 				progress.report({ message: 'Cloning repository...' });
-
 				await new Promise((resolve, reject) => {
 					exec(
 						'git clone --recursive git@github.com:openframeworks/openFrameworks.git --depth 1',
 						{ cwd: targetPath },
 						(error) => {
+							if (error) reject(error);
+							else resolve();
+						}
+					);
+				});
+
+				// Download dependencies
+				progress.report({ message: 'Downloading OF dependencies...' });
+				await new Promise((resolve, reject) => {
+					const scriptPath = path.join(targetPath, 'openFrameworks', 'scripts', 'osx', 'download_libs.sh');
+					exec(
+						`chmod +x "${scriptPath}" && "${scriptPath}"`,
+						{ cwd: path.dirname(scriptPath) },
+						(error, _stdout, _stderr) => {
 							if (error) reject(error);
 							else resolve();
 						}
