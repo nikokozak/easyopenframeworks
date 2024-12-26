@@ -14,9 +14,19 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "easyopenframeworks.helloWorld",
-      "title": "Hello World"
-    }]
+      "command": "easyopenframeworks.installOF",
+      "title": "Install OpenFrameworks"
+    }],
+    "configuration": {
+        "title": "EasyOpenFrameworks",
+        "properties": {
+            "easyopenframeworks.ofPath": {
+                "type": "string",
+                "default": "",
+                "description": "Path to OpenFrameworks installation"
+            }
+        }
+    }
   },
   "scripts": {
     "lint": "eslint .",
