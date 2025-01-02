@@ -29,3 +29,4 @@ So far:
 - List out current OF projects (or available projects) in a tree view in the sidebar.
 - Add buttons for common commands into the sidebary (`install OF`, `build project`, etc).
 - Implement a "log" so that build error messages can be viewable and saved for the current session.
+- Rewrite openFrameworks in CLASP.
