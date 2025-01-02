@@ -1,15 +1,14 @@
 // The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 const { exec } = require('child_process');
 const path = require('path');
 
+// The following will get the path to the OF installation from the workspace settings:
+const config = vscode.workspace.getConfiguration('easyopenframeworks');
+const ofPath = config.get('ofPath');
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-
-// The following will get the path to the OF installation from the workspace settings:
-// const config = vscode.workspace.getConfiguration('easyopenframeworks');
-// const ofPath = config.get('ofPath');
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -21,9 +20,20 @@ function activate(context) {
 	console.log('Congratulations, your extension "easyopenframeworks" is now active!');
 
 	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
+	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('easyopenframeworks.installOF', async () => {
+		if (ofPath) {
+			const choice = await vscode.window.showInformationMessage(
+				`OF Installation found at ${ofPath}. Do you want to create a new install?`,
+				"Yes",
+				"No"
+			);
+			if (choice === "No") {
+				return;
+			}
+		}
+
 		try {
 			// Get folder to install OF
 			const folder = await vscode.window.showOpenDialog({
@@ -77,7 +87,8 @@ function activate(context) {
 			});
 
 			// Save OF path to workspace settings
-			const config = vscode.workspace.getConfiguration('easyopenframeworks');
+			// TODO: config is declared in global scope.
+			// const config = vscode.workspace.getConfiguration('easyopenframeworks');
 			await config.update('ofPath', path.join(targetPath, 'openFrameworks'), vscode.ConfigurationTarget.Global);
 
 			vscode.window.showInformationMessage('OpenFrameworks installed successfully!');
