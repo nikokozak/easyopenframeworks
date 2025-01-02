@@ -49,7 +49,7 @@ function activate(context) {
 			
 			// Check for spaces in path
 			if (targetPath.includes(' ')) {
-				throw new Error('Installation path cannot contain spaces. Please choose a different location.');
+				throw new Error('Installation path cannot contain spaces in path string. Please choose a different location.');
 			}
 
 			// Show progress
@@ -79,6 +79,19 @@ function activate(context) {
 						`chmod +x "${scriptPath}" && "${scriptPath}"`,
 						{ cwd: path.dirname(scriptPath) },
 						(error, _stdout, _stderr) => {
+							if (error) reject(error);
+							else resolve();
+						}
+					);
+				});
+
+				// Download Project Generator
+				progress.report({ message: 'Downloading Project Generator...' });
+				await new Promise((resolve, reject) => {
+					exec(
+						'curl -L https://github.com/openframeworks/projectGenerator/releases/download/nightly/projectGenerator-osx.zip -o projectGenerator.zip && unzip projectGenerator.zip && rm projectGenerator.zip',
+						{ cwd: path.join(targetPath, 'openFrameworks') },
+						(error) => {
 							if (error) reject(error);
 							else resolve();
 						}
