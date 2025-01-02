@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="230"
+   height="230"
+   viewBox="0 0 230 230"
+   version="1.1"
+   preserveAspectRatio="xMidYMid"
+   id="svg15"
+   sodipodi:docname="openframeworks-1669124057-logotic-brand.svg"
+   inkscape:export-filename="../../../../../Downloads/openframeworks-1669124057-logotic-brand.svg"
+   inkscape:export-xdpi="6.6782608"
+   inkscape:export-ydpi="6.6782608"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19" />
+  <sodipodi:namedview
+     id="namedview17"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false" />
+  <title
+     id="title9">Open Frameworks</title>
+  <g
+     id="g13"
+     transform="matrix(0.76090771,0,0,0.74149063,19.449153,64.63983)">
+    <path
+       d="m 67.490909,0 c 37.236361,0 67.490911,30.254545 67.490911,67.490909 0,37.236361 -30.25455,67.490911 -67.490911,67.490911 C 30.254545,134.98182 0,104.72727 0,67.490909 0,30.254545 30.254545,0 67.490909,0 Z M 195.49091,0 V 134.98182 H 137.30909 V 0 Z m 37.23636,60.509091 V 95.418182 H 197.81818 V 60.509091 Z M 256,0 197.81818,58.181818 V 0 Z"
+       fill="#000000"
+       id="path11" />
+  </g>
+</svg>

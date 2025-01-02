@@ -26,6 +26,20 @@
                 "description": "Path to OpenFrameworks installation"
             }
         }
+    },
+    "viewsContainers": {
+        "activitybar": [{
+            "id": "easyopenframeworks-sidebar",
+            "title": "OpenFrameworks",
+            "icon": "media/of-icon.svg"
+        }]
+    },
+    "views": {
+        "easyopenframeworks-sidebar": [{
+            "type": "webview",
+            "id": "easyopenframeworks.ofInfo",
+            "name": "OF Info"
+        }]
     }
   },
   "scripts": {

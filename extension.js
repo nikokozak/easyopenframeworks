@@ -13,7 +13,61 @@ const ofPath = config.get('ofPath');
 /**
  * @param {vscode.ExtensionContext} context
  */
+class OFInfoProvider {
+	static viewType = 'easyopenframeworks.ofInfo';
+	
+	constructor(extensionUri) {
+		this._extensionUri = extensionUri;
+		this._view = undefined;
+	}
+
+	resolveWebviewView(webviewView) {
+		this._view = webviewView;
+
+		webviewView.webview.options = {
+			enableScripts: true
+		};
+
+		const config = vscode.workspace.getConfiguration('easyopenframeworks');
+		const ofPath = config.get('ofPath');
+
+		webviewView.webview.html = `
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<style>
+						body { 
+							padding: 20px;
+							height: 100vh;
+							box-sizing: border-box;
+						}
+						.info-section {
+							margin-bottom: 20px;
+						}
+						.section-title {
+							font-size: 14px;
+							font-weight: bold;
+							margin-bottom: 10px;
+						}
+					</style>
+				</head>
+				<body>
+					<div class="info-section">
+						<div class="section-title">Installation</div>
+						<div>${ofPath || 'OpenFrameworks is not installed'}</div>
+					</div>
+				</body>
+			</html>
+		`;
+	}
+}
+
 function activate(context) {
+	// Register the webview
+	const provider = new OFInfoProvider(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(OFInfoProvider.viewType, provider)
+	);
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -88,14 +142,19 @@ function activate(context) {
 				// Download Project Generator
 				progress.report({ message: 'Downloading Project Generator...' });
 				await new Promise((resolve, reject) => {
-					exec(
-						'curl -L https://github.com/openframeworks/projectGenerator/releases/download/nightly/projectGenerator-osx.zip -o projectGenerator.zip && unzip projectGenerator.zip && rm projectGenerator.zip',
-						{ cwd: path.join(targetPath, 'openFrameworks') },
-						(error) => {
-							if (error) reject(error);
-							else resolve();
-						}
-					);
+					exec('git clone https://github.com/openframeworks/projectGenerator.git', { cwd: path.join(targetPath, 'openFrameworks') }, (error) => {
+						if (error) reject(error);
+						else resolve();
+					});
+				});
+
+				// Build Project Generator
+				progress.report({ message: 'Building Project Generator...' });
+				await new Promise((resolve, reject) => {
+					exec('cd projectGenerator && make', { cwd: path.join(targetPath, 'openFrameworks') }, (error) => {
+						if (error) reject(error);
+						else resolve();
+					});
 				});
 			});
 
