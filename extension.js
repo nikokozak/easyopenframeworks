@@ -139,10 +139,12 @@ function activate(context) {
 					);
 				});
 
+				const pGenPath = path.join(targetPath, 'openFrameworks', 'apps', 'projectGenerator');
+
 				// Download Project Generator
 				progress.report({ message: 'Downloading Project Generator...' });
 				await new Promise((resolve, reject) => {
-					exec('git clone https://github.com/openframeworks/projectGenerator.git', { cwd: path.join(targetPath, 'openFrameworks') }, (error) => {
+					exec('git clone https://github.com/openframeworks/projectGenerator.git', { cwd: pGenPath }, (error) => {
 						if (error) reject(error);
 						else resolve();
 					});
@@ -151,7 +153,7 @@ function activate(context) {
 				// Build Project Generator
 				progress.report({ message: 'Building Project Generator...' });
 				await new Promise((resolve, reject) => {
-					exec('cd projectGenerator && make', { cwd: path.join(targetPath, 'openFrameworks') }, (error) => {
+					exec('cd commandLine && make -j', { cwd: pGenPath }, (error) => {
 						if (error) reject(error);
 						else resolve();
 					});
